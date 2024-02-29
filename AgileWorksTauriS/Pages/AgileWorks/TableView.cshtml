@@ -1,0 +1,34 @@
+﻿@page
+@model AgileWorksTauriS.Pages.AgileWorks.IndexModel
+@{
+}
+
+<br>
+<h2>List of Support Tickets</h2>
+<a class="btn btn-primary btn-sm" href="/AgileWorks/AddTicket">Add New Ticket</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Comments</th>
+            <th>Created at</th>
+            <th>Deadline</th>
+            <th></th>
+        </tr>
+    </thead>
+    @* <tbody style="color:red;"> *@
+    <tbody>
+        @foreach(var item in Model.listTickets)
+        {
+            <tr style ="color:@item.color">
+                <td>@item.id</td>
+                <td>@item.comment</td>
+                <td>@item.createDate</td>
+                <td>@item.deadLine</td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="/AgileWorks/CompleteTicket?id=@item.id">Mark as Complete</a>
+                </td>            
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+﻿@page
+@using MySql.Data.MySqlClient;
+
+@{
+    try
+    {
+        String id = Request.Query["id"];
+
+        String connectionstring = "server=localhost;uid=root;pwd=;database=agileWorks";
+        using (MySqlConnection connection = new MySqlConnection(connectionstring))
+        {
+            connection.Open();
+            String qU = "UPDATE tickets SET is_completed = 1 WHERE id = @id";
+
+            using (MySqlCommand command = new MySqlCommand(qU, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);                
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception)
+    {
+    }
+
+    Response.Redirect("/AgileWorks/TableView");
+
+}
+
+

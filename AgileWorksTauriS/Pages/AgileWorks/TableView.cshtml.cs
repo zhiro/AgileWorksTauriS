@@ -1,0 +1,78 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using MySql.Data.MySqlClient;
+
+namespace AgileWorksTauriS.Pages.AgileWorks
+{
+    public class IndexModel : PageModel
+    {
+
+        public List<SupportTickets> listTickets = new List<SupportTickets>();    
+       
+        
+        public void OnGet()
+        {
+            try
+            {       
+                String connectionstring = "server=localhost;uid=root;pwd=;database=agileWorks";
+             
+                using (MySqlConnection connection = new MySqlConnection(connectionstring))
+                {
+                    connection.Open();
+                    String query = "SELECT * FROM tickets where is_completed <> 1 ORDER BY deadLine desc;";            
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {                        
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SupportTickets supportTicket = new SupportTickets();
+                                supportTicket.id = "" + reader.GetInt32(0);
+                                supportTicket.comment = reader.GetString(1);
+                                supportTicket.createDate = reader.GetDateTime(2).ToString();
+                                supportTicket.deadLine = reader.GetDateTime(3).ToString();                     
+                                
+                                supportTicket.color = isTicketOverdue(supportTicket.deadLine);
+
+                                listTickets.Add(supportTicket);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("Exception: " + err.ToString());                
+            }
+        }
+
+        public String isTicketOverdue(String dueDate)
+        {
+            String color = "black";
+
+            DateTime deadLine = DateTime.Parse(dueDate);
+            DateTime time_now = DateTime.Now;
+
+            TimeSpan overDue = new TimeSpan(1, 0, 0);
+            TimeSpan diff = deadLine.Subtract(time_now);
+
+            if (overDue > diff)
+            { 
+                color = "red";
+            }            
+
+            return color;
+
+        }
+
+
+    }
+
+    public class SupportTickets
+    {
+        public String id;
+        public String comment;
+        public String createDate;
+        public String deadLine;
+        public String color;
+    }
+}
