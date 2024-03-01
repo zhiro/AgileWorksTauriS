@@ -23,6 +23,10 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                     {                        
                         using (MySqlDataReader reader = command.ExecuteReader())
                         {
+                            
+                            overDueChecker _overDueChecker = new overDueChecker();
+
+
                             while (reader.Read())
                             {
                                 SupportTickets supportTicket = new SupportTickets();
@@ -31,7 +35,8 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                                 supportTicket.createDate = reader.GetDateTime(2).ToString();
                                 supportTicket.deadLine = reader.GetDateTime(3).ToString();                     
                                 
-                                supportTicket.color = isTicketOverdue(supportTicket.deadLine);
+                                //supportTicket.color = isTicketOverdue(supportTicket.deadLine);
+                                supportTicket.color = _overDueChecker.getTicketLineColor(supportTicket.deadLine);
 
                                 listTickets.Add(supportTicket);
                             }
@@ -45,24 +50,24 @@ namespace AgileWorksTauriS.Pages.AgileWorks
             }
         }
 
-        public String isTicketOverdue(String dueDate)
-        {
-            String color = "black";
+        //public String isTicketOverdue(String dueDate)
+        //{
+        //    String color = "black";
 
-            DateTime deadLine = DateTime.Parse(dueDate);
-            DateTime time_now = DateTime.Now;
+        //    DateTime deadLine = DateTime.Parse(dueDate);
+        //    DateTime time_now = DateTime.Now;
 
-            TimeSpan overDue = new TimeSpan(1, 0, 0);
-            TimeSpan diff = deadLine.Subtract(time_now);
+        //    TimeSpan overDue = new TimeSpan(1, 0, 0);
+        //    TimeSpan diff = deadLine.Subtract(time_now);
 
-            if (overDue > diff)
-            { 
-                color = "red";
-            }            
+        //    if (overDue > diff)
+        //    { 
+        //        color = "red";
+        //    }            
 
-            return color;
+        //    return color;
 
-        }
+        //}
 
 
     }

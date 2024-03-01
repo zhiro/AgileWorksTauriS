@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileWorksTauriS", "AgileWorksTauriS\AgileWorksTauriS.csproj", "{8527AA2C-455B-4222-9CAC-36E7DB9F9AF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unitTests", "unitTests\unitTests.csproj", "{DFEB9AFE-F2FB-4E30-A88C-566DC6FE22C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8527AA2C-455B-4222-9CAC-36E7DB9F9AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8527AA2C-455B-4222-9CAC-36E7DB9F9AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8527AA2C-455B-4222-9CAC-36E7DB9F9AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEB9AFE-F2FB-4E30-A88C-566DC6FE22C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEB9AFE-F2FB-4E30-A88C-566DC6FE22C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEB9AFE-F2FB-4E30-A88C-566DC6FE22C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEB9AFE-F2FB-4E30-A88C-566DC6FE22C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
