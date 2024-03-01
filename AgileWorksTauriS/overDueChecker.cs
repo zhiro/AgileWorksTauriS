@@ -7,8 +7,7 @@
         {
             String color = "black";
 
-            DateTime deadLine = DateTime.Parse(dueDate);
-            //DateTime time_now = DateTime.Now.ToLocalTime();
+            DateTime deadLine = DateTime.Parse(dueDate);            
 
             bool overDue = isTicketOverDue(DateTime.Now.ToLocalTime(), deadLine) ;            
 

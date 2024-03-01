@@ -33,9 +33,8 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                                 supportTicket.id = "" + reader.GetInt32(0);
                                 supportTicket.comment = reader.GetString(1);
                                 supportTicket.createDate = reader.GetDateTime(2).ToString();
-                                supportTicket.deadLine = reader.GetDateTime(3).ToString();                     
+                                supportTicket.deadLine = reader.GetDateTime(3).ToString();                                                     
                                 
-                                //supportTicket.color = isTicketOverdue(supportTicket.deadLine);
                                 supportTicket.color = _overDueChecker.getTicketLineColor(supportTicket.deadLine);
 
                                 listTickets.Add(supportTicket);
@@ -49,27 +48,6 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                 Console.WriteLine("Exception: " + err.ToString());                
             }
         }
-
-        //public String isTicketOverdue(String dueDate)
-        //{
-        //    String color = "black";
-
-        //    DateTime deadLine = DateTime.Parse(dueDate);
-        //    DateTime time_now = DateTime.Now;
-
-        //    TimeSpan overDue = new TimeSpan(1, 0, 0);
-        //    TimeSpan diff = deadLine.Subtract(time_now);
-
-        //    if (overDue > diff)
-        //    { 
-        //        color = "red";
-        //    }            
-
-        //    return color;
-
-        //}
-
-
     }
 
     public class SupportTickets

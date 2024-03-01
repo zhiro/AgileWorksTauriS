@@ -11,8 +11,7 @@ namespace AgileWorksTauriS.Pages.AgileWorks
         
         public void OnGet()
         {
-            supportTicket.createDate = DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
-            //supportTicket.createDate = DateTime.Now.ToLocalTime().ToString("2022-05-06 14:15:30");
+            supportTicket.createDate = DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");            
         }
 
         public void OnPost() 
