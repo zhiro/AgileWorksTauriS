@@ -1,6 +1,7 @@
 ﻿@page
 @model AgileWorksTauriS.Pages.AgileWorks.IndexModel
 @{
+    ViewData["Title"] = "Ticket List";
 }
 
 <br>
@@ -16,7 +17,6 @@
             <th></th>
         </tr>
     </thead>
-    @* <tbody style="color:red;"> *@
     <tbody>
         @foreach(var item in Model.listTickets)
         {
@@ -26,7 +26,7 @@
                 <td>@item.createDate</td>
                 <td>@item.deadLine</td>
                 <td>
-                    <a class="btn btn-danger btn-sm" href="/AgileWorks/CompleteTicket?id=@item.id">Mark as Complete</a>
+                    <a class="btn btn-primary btn-sm" href="/AgileWorks/CompleteTicket?id=@item.id">Mark as Complete</a>
                 </td>            
             </tr>
         }

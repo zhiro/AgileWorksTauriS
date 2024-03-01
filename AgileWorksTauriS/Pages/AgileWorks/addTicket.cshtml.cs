@@ -5,24 +5,36 @@ namespace AgileWorksTauriS.Pages.AgileWorks
 {
     public class addTicketModel : PageModel
     {
-        public SupportTickets supportTicket = new SupportTickets();
+        public SupportTickets supportTicket { get; set; } = new SupportTickets();
         public string errorMessage = "";
         public string successMessage = "";
         
         public void OnGet()
         {
+            supportTicket.createDate = DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+            //supportTicket.createDate = DateTime.Now.ToLocalTime().ToString("2022-05-06 14:15:30");
         }
 
         public void OnPost() 
         {
             supportTicket.comment = Request.Form["comment"];
             supportTicket.deadLine = Request.Form["deadLine"];
+            supportTicket.createDate = Request.Form["createDate"];
+            
 
-            if (supportTicket.comment == "" || supportTicket.deadLine == "") 
+            if (supportTicket.comment == "") 
             {
-                errorMessage = "Fill out all the fields";
+                errorMessage = "Please add a ticket description ";
+                OnGet();
                 return;
             }
+
+            if (supportTicket.deadLine == "")
+            {                
+                errorMessage = "DeadLine can't be empty";
+                OnGet();
+                return;
+            }            
 
             try
             {
@@ -30,13 +42,14 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                 using (MySqlConnection connection = new MySqlConnection(connectionstring))
                 {
                     connection.Open();
-                    String qi = "INSERT INTO tickets "        +
-                                "(comment, deadLine) VALUES " +
-                                "(@comment, @deadLine);"      ;
+                    String qi = "INSERT INTO tickets " +
+                                "(comment, createDate, deadLine) VALUES " +
+                                "(@comment, @createDate, @deadLine);";
 
                     using (MySqlCommand command = new MySqlCommand(qi, connection))
                     {
                         command.Parameters.AddWithValue("@comment", supportTicket.comment);
+                        command.Parameters.AddWithValue("@createDate", supportTicket.createDate);
                         command.Parameters.AddWithValue("@deadLine", supportTicket.deadLine);
 
                         command.ExecuteNonQuery();
@@ -49,12 +62,12 @@ namespace AgileWorksTauriS.Pages.AgileWorks
                 errorMessage = err.Message;
                 return;
             }
-          
-            supportTicket.comment = ""; supportTicket.deadLine = "";
-            successMessage = "New Ticket Added";
 
-            Response.Redirect("/AgileWorks/TableView");
+            supportTicket.comment = "";
+            supportTicket.deadLine = "";
+            successMessage = "New Ticket Added";                        
 
+            OnGet();
         }
     }
 }

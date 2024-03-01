@@ -1,6 +1,7 @@
 ﻿@page
 @model AgileWorksTauriS.Pages.AgileWorks.addTicketModel
 @{
+    ViewData["Title"] = "Add Ticket";
 }
 <br />
 <h2>Add Ticket</h2>
@@ -16,7 +17,7 @@
 
 <form method="post">
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Comment</label>
+        <label class="col-sm-3 col-form-label">Description</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" name="comment" value="@Model.supportTicket.comment" />
         </div>
@@ -25,7 +26,14 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Deadline</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" name="deadLine" value="@Model.supportTicket.deadLine" />
+            <input type="datetime-local" class="form-control" name="deadLine" value="@Model.supportTicket.deadLine" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Create Date</label>
+        <div class="col-sm-6">
+            <input type="datetime-local" class="form-control" name="createDate" value="@Model.supportTicket.createDate" readonly />
         </div>
     </div>
 
@@ -46,7 +54,7 @@
             <button type="submit" class="btn btn-primary">Add</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/AgileWorks/TableView" role="button">Cancel</a>
+            <a class="btn btn-outline-primary" href="/AgileWorks/TableView" role="button">View Tickets</a>
         </div>
     </div>
 </form>
