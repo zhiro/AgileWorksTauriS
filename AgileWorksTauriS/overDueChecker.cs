@@ -10,27 +10,27 @@
             DateTime deadLine = DateTime.Parse(dueDate);
             //DateTime time_now = DateTime.Now.ToLocalTime();
 
-            TimeSpan diff = findTimeDiff(DateTime.Now.ToLocalTime(), deadLine) ;
-            
-            TimeSpan overDue = new TimeSpan(1, 0, 0);
+            bool overDue = isTicketOverDue(DateTime.Now.ToLocalTime(), deadLine) ;            
 
-            if (overDue > diff)
-            {
-                color = "red";
-                //color = "blue";
-            }
+            if (overDue) { color = "red"; }
 
             return color;
 
         }
 
 
-        public TimeSpan findTimeDiff(DateTime curTime, DateTime dueDate)
+        public bool isTicketOverDue(DateTime curTime, DateTime dueDate)
         {
+            bool overDue = false;
+            TimeSpan cutOff = new TimeSpan(1, 0, 0);
             TimeSpan diff = dueDate.Subtract(curTime);
-            return diff;
+
+            if (cutOff > diff)
+            {
+                overDue = true;
+            }
+
+            return overDue;
         }
-
-
     }
 }
