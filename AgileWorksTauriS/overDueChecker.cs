@@ -1,35 +1,38 @@
-﻿namespace AgileWorksTauriS
+namespace AgileWorksTauriS
 {
+
+    public class systemTimeProvider
+    {
+        public virtual DateTime UtcNow()
+        {
+            return DateTime.UtcNow;
+        } 
+    }
+
+    public class overDueCheckerSettings
+    {
+        public virtual int PassedCurrentDeadlineInHours()
+        {
+            return -1;
+        }
+    }
+    
     public class overDueChecker
     {
-
-        public String getTicketLineColor(String dueDate)
+        private readonly systemTimeProvider _provider;
+        private readonly overDueCheckerSettings _timeSkip;
+        
+        public overDueChecker(systemTimeProvider provider, overDueCheckerSettings timeSkip)
         {
-            String color = "black";
-
-            DateTime deadLine = DateTime.Parse(dueDate);            
-
-            bool overDue = isTicketOverDue(DateTime.Now.ToLocalTime(), deadLine) ;            
-
-            if (overDue) { color = "red"; }
-
-            return color;
-
+            _provider = provider;
+            _timeSkip = timeSkip;
         }
 
-
-        public bool isTicketOverDue(DateTime curTime, DateTime dueDate)
+        
+        public String getTicketLineColor(DateTime deadLineUtc)
         {
-            bool overDue = false;
-            TimeSpan cutOff = new TimeSpan(1, 0, 0);
-            TimeSpan diff = dueDate.Subtract(curTime);
-
-            if (cutOff > diff)
-            {
-                overDue = true;
-            }
-
-            return overDue;
+            bool overDue = _provider.UtcNow().AddHours(_timeSkip.PassedCurrentDeadlineInHours()) <= deadLineUtc ;
+            return overDue ? "red" : "black";
         }
     }
 }
